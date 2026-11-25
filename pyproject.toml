@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "heterograph-scheduler"
+version = "0.1.0"
+description = "Task-aware heterogeneous scheduling prototype for graph workloads"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+gpu = ["torch"]
+pyg = ["torch", "torch-geometric"]
+test = []
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["heterograph_scheduler*"]
