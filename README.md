@@ -33,6 +33,20 @@ python -m heterograph_scheduler --policy dqn
 The DQN option requires PyTorch. The default heuristic and simulator use only the
 Python standard library.
 
+## Visualization dashboard
+
+Install the optional dashboard dependencies and launch the local web UI:
+
+```bash
+python -m pip install -e ".[dashboard]"
+streamlit run app.py
+```
+
+The dashboard visualizes synthetic task-to-resource assignments and estimated
+latencies. Its **Hardware Benchmark** tab accepts the JSON printed by
+`scripts/benchmark_cuda.py` and plots real CPU/CUDA measurements. Simulation
+estimates and hardware measurements are intentionally shown separately.
+
 ## Run a real CPU example
 
 ```powershell

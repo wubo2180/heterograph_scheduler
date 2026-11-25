@@ -13,6 +13,7 @@ dependencies = []
 gpu = ["torch"]
 pyg = ["torch", "torch-geometric"]
 test = []
+dashboard = ["streamlit>=1.40", "pandas>=2.0"]
 
 [tool.setuptools.packages.find]
 where = ["."]

@@ -3,9 +3,24 @@
 from __future__ import annotations
 
 from collections.abc import Sequence
+from typing import Literal, TypedDict
 
 from .models import DeviceKind, GraphTask, ResourceProfile
 from .scheduler import DQNScheduler, HeuristicScheduler
+
+
+class AssignmentRecord(TypedDict):
+    task_id: str
+    device: str
+    estimated_latency_ms: float
+
+
+class SimulationResult(TypedDict):
+    mode: Literal["synthetic_simulation"]
+    policy: str
+    task_count: int
+    estimated_total_latency_ms: float
+    assignments: list[AssignmentRecord]
 
 
 def synthetic_resources() -> tuple[ResourceProfile, ...]:
@@ -41,12 +56,12 @@ def simulate(
     tasks: Sequence[GraphTask],
     resources: Sequence[ResourceProfile],
     policy: str = "heuristic",
-) -> dict[str, object]:
+) -> SimulationResult:
     if policy not in {"heuristic", "dqn"}:
         raise ValueError("policy must be 'heuristic' or 'dqn'")
     heuristic = HeuristicScheduler()
     dqn = DQNScheduler(len(resources)) if policy == "dqn" else None
-    records: list[dict[str, object]] = []
+    records: list[AssignmentRecord] = []
     total_latency = 0.0
     for task in tasks:
         if dqn is None:
